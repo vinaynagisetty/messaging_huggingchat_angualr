@@ -9,15 +9,17 @@ import { HuggingchatService } from './huggingchat.service';
 export class AppComponent {
   title = 'huggingchat-integration';
   response: any;
+  message: string = '';  // Property bound to the input field
 
   constructor(private huggingChatService: HuggingchatService) { }
 
 
-  sendMessage(message: string): void {
-    this.huggingChatService.sendMessage(message).subscribe(
+  sendMessage(): void {
+    this.huggingChatService.sendMessage(this.message).subscribe(
       res => {
         this.response = res[0].generated_text;
         console.log(res);
+        this.message = '';  // Clear the input field
       },
       err => {
         console.error('Error occurred:', err);
